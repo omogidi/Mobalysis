@@ -1,5 +1,4 @@
-### Task 1
--- Bash script to install and setup Postgres
+### Task 1 - Bash script to install and setup Postgres
 -- Write a shell script that installs postgresql, adds a user with the username mob_db_user and a password mob_db_pass. 
 -- Script should be run as the root user or using sudo. 
 -- Script should be called setup.sh 
