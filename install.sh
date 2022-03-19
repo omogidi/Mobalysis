@@ -1,21 +1,37 @@
-git clone https://github.com/omogidi/Mobalysis:/home/mob_app_usr .
-cd /home/mob_app_usr/Mobalysis
-sudo chmod 777 /home/mob_app_usr/.bashrc
-sudo echo “export DBNAME=“mobalytics”” >> /home/mob_app_usr/.bashrc
-sudo echo “export DBUSER=“mob_db_user”” >> /home/mob_app_usr/.bashrc
-sudo echo “export DBPASS=“mob_db_pass”” >> /home/mob_app_usr/.bashrc
-sudo echo “export DBHOST=“localhost”” >> /home/mob_app_usr/.bashrc
-sudo echo “export DBPORT=“5432”” >> /home/mob_app_usr/.bashrc
-source /home/mob_app_usr/.bashrc
-sudo python3 -m pip install --user --upgrade pip
-sudo python3 -m pip --version
-sudo python3 -m pip install --user virtualenv
-sudo python3 -m venv /home/mob_app_usr/env
+#!/bin/bash
 
-source /home/mob_app_usr/env/bin/activate
+#Step 3
+#This script clones the repository into the home directory of the mob_app_usr
 
-sudo python3 -m pip install django
+sudo su mob_app_usr
+cd ..
+cd mob_app_usr
+git clone https://github.com/omogidi/Mobalysis
 
-sudo python3 ~/Mobalysis/backend/manage.py makemigrations
 
-sudo python3 ~/Mobalysis/backend/manage.py migrate
+#Step 4
+#This adds the environmental variable to mob_db_user
+cd ..
+cd ubuntu
+echo -e "EXPORT DBNAME=mobalytics\nEXPORT DBUSER=mob_db_user\nEXPORT DBPASS=mob_db_pass\nEXPORT DBHOST=localhost\nEXPORT DBPORT=5432" >> .bashrc
+
+sudo chmod +x .bashrc
+
+ 
+#This code creates the virtual environment
+python3.8 -m venv /home/new/virtualenv
+ 
+#This code activates the virtual environment
+source /home/virtualenv/env/bin/activate
+ 
+#This script install packages
+sudo apt-get install libpq-dev -y
+sudo apt-get install python3-pip
+pip install psycopg3
+
+
+#Makes a new migration
+#Installs the backend migration 
+python3 /home/Mobalysis/backend/manage.py makemigrations
+python3 /home/Mobalysis/backend/manage.py migrate
+
